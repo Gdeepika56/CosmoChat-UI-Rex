@@ -4,14 +4,15 @@ import './chat.css';
 
 
 
+
 const API_KEY = "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";
+
 
 const Chat = ({ onChatEnd }) => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
 
     useEffect(() => {
-        // Initialize chat session or load existing chat history if needed
         setMessages([{ text: "Hello, I am Chatbox!", sender: 'bot' }]);
     }, []);
 
@@ -45,7 +46,6 @@ const Chat = ({ onChatEnd }) => {
     };
 
     const endChat = () => {
-        // Perform any necessary cleanup or termination actions
         onChatEnd();
     };
 

@@ -1,16 +1,15 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Container, Card, CardContent, Typography, List, ListItem, ListItemText } from '@mui/material';
+import { Container, Card, CardContent, Typography, List, ListItem, ListItemText, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Chart as ChartJS, CategoryScale, BarElement, Title, Tooltip, Legend, LinearScale } from 'chart.js';
 
 ChartJS.register(CategoryScale, BarElement, LinearScale, Title, Tooltip, Legend);
 
-
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(4),
-    display: 'center',
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -32,36 +31,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ onBack }) => {
+const ActivityDashboard = ({ activityData, onBack }) => {
   const classes = useStyles();
 
   const chartData = {
-    labels: ['July 13', 'July 14'],
+    labels: activityData.map((data) => data.timestamp),
     datasets: [
       {
-        label: 'Messages',
-        data: [6, 3],
+        label: 'Activity Count',
+        data: activityData.map((_, index) => index + 1),
         backgroundColor: '#00ACC1',
       },
     ],
   };
 
-  const listItems = [
-    { date: 'July 13, 2024', messages: 6 },
-    { date: 'July 13, 2024', messages: 6 },
-    { date: 'July 14, 2024', messages: 3 },
-  ];
-
   return (
     <Container className={classes.container}>
-      <button className = {classes.button} variant="contained" color="primary" onClick={onBack}>Back to landing page</button>
+      <Button variant="contained" color="primary" onClick={onBack}>Back to landing page</Button>
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h5" gutterBottom>
             Your Statistics
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Graph of the conversation you had with ReX this year.
+            Graph of your chat activities.
           </Typography>
           <div className={classes.chart}>
             <Bar data={chartData} options={{ maintainAspectRatio: false }} />
@@ -75,9 +68,9 @@ const Dashboard = ({ onBack }) => {
             <span style={{ float: 'right', color: '#3f51b5', cursor: 'pointer' }}>See All</span>
           </Typography>
           <List className={classes.list}>
-            {listItems.map((item, index) => (
+            {activityData.map((item, index) => (
               <ListItem key={index} className={classes.listItem}>
-                <ListItemText primary={`ReX - ${item.date}`} secondary={`${item.messages} Messages`} />
+                <ListItemText primary={item.activity} secondary={item.timestamp} />
               </ListItem>
             ))}
           </List>
@@ -87,4 +80,4 @@ const Dashboard = ({ onBack }) => {
   );
 };
 
-export default Dashboard;
+export default ActivityDashboard;
