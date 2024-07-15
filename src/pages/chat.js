@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './chat.css';
 
-
-
-
-const API_KEY = "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";
-
+const apikey = "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"
 
 const Chat = ({ onChatEnd }) => {
     const [messages, setMessages] = useState([]);
@@ -32,7 +28,7 @@ const Chat = ({ onChatEnd }) => {
                 },
                 {
                     headers: {
-                        'Authorization': `Bearer ${API_KEY}`,
+                        'Authorization': `Bearer ${apikey}`,
                         'Content-Type': 'application/json'
                     }
                 }
